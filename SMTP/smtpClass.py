@@ -14,7 +14,7 @@ class smtpClient:	        #the return value & parameters are just informational 
         self.message = message
 
     def sendEmail(self):
-        self.server.sendmail(from_addr=self.sender, to_addrs=[self.receiver])
+        self.server.sendmail(from_addr=self.sender, to_addrs=[self.receiver], msg=self.message)
 
     def endTheSession(self):
         self.server.quit()
