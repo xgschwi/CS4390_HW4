@@ -1,0 +1,35 @@
+~/cs4390/CS4390_HW4/SMTP$ python smtp.py
+send: 'ehlo bglinux1.bgsu.edu\r\n'
+reply: '250-smtpout.bgsu.edu\r\n'
+reply: '250-PIPELINING\r\n'
+reply: '250-SIZE 37748736\r\n'
+reply: '250-VRFY\r\n'
+reply: '250-ETRN\r\n'
+reply: '250-ENHANCEDSTATUSCODES\r\n'
+reply: '250-8BITMIME\r\n'
+reply: '250 DSN\r\n'
+reply: retcode (250); Msg: smtpout.bgsu.edu
+PIPELINING
+SIZE 37748736
+VRFY
+ETRN
+ENHANCEDSTATUSCODES
+8BITMIME
+DSN
+send: 'mail FROM:<xgschwi@bgsu.edu> size=21\r\n'
+reply: '250 2.1.0 Ok\r\n'
+reply: retcode (250); Msg: 2.1.0 Ok
+send: 'rcpt TO:<xgschwi@bgsu.edu>\r\n'
+reply: '250 2.1.5 Ok\r\n'
+reply: retcode (250); Msg: 2.1.5 Ok
+send: 'data\r\n'
+reply: '354 End data with <CR><LF>.<CR><LF>\r\n'
+reply: retcode (354); Msg: End data with <CR><LF>.<CR><LF>
+data: (354, 'End data with <CR><LF>.<CR><LF>')
+send: 'Hi from yourself. HW4\r\n.\r\n'
+reply: '250 2.0.0 Ok: queued as 80804405D16A\r\n'
+reply: retcode (250); Msg: 2.0.0 Ok: queued as 80804405D16A
+data: (250, '2.0.0 Ok: queued as 80804405D16A')
+send: 'quit\r\n'
+reply: '221 2.0.0 Bye\r\n'
+reply: retcode (221); Msg: 2.0.0 Bye
