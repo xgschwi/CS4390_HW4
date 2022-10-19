@@ -1,4 +1,3 @@
-from msilib.schema import MIME
 from smtplib import SMTP # https://docs.python.org/3/library/smtplib.html
     # attachments next https://docs.python.org/3/library/email.compat32-message.html#email.message.Message.add_header
     # https://docs.python.org/3/library/email.mime.html
