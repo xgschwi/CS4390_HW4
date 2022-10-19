@@ -22,7 +22,7 @@ class smtpClient:	        #the return value & parameters are just informational 
 
         attachmentPart = None
         with open(attachment, 'rb') as a:
-            attachmentPart = MIMEApplication(attachment.read())
+            attachmentPart = MIMEApplication(a.read())
         attachmentPart.add_header('Content-Disposition', 'attachment;filename=' + attachment)
 
         messageMulti.attach(attachmentPart)
