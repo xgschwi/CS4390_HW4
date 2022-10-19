@@ -1,5 +1,5 @@
 from smtplib import SMTP # https://docs.python.org/3/library/smtplib.html
-
+    # attachments next https://docs.python.org/3/library/email.compat32-message.html#email.message.Message.add_header
 class smtpClient:	        #the return value & parameters are just informational - you decide what they need to be.
     message = ''
     server = None
