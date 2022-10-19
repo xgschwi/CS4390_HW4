@@ -1,4 +1,4 @@
-~/cs4390/CS4390_HW4/SMTP$ python smtp.py
+~/cs4390/CS4390_HW4/SMTP$ python smtp.py smtp.bgsu.edu 25 xgschwi@bgsu.edu xgschwi@bgsu.edu "Hello there with attachment test HW4" results.txt
 send: 'ehlo bglinux1.bgsu.edu\r\n'
 reply: '250-smtpout.bgsu.edu\r\n'
 reply: '250-PIPELINING\r\n'
@@ -16,7 +16,7 @@ ETRN
 ENHANCEDSTATUSCODES
 8BITMIME
 DSN
-send: 'mail FROM:<xgschwi@bgsu.edu> size=21\r\n'
+send: 'mail FROM:<xgschwi@bgsu.edu> size=1941\r\n'
 reply: '250 2.1.0 Ok\r\n'
 reply: retcode (250); Msg: 2.1.0 Ok
 send: 'rcpt TO:<xgschwi@bgsu.edu>\r\n'
@@ -26,10 +26,10 @@ send: 'data\r\n'
 reply: '354 End data with <CR><LF>.<CR><LF>\r\n'
 reply: retcode (354); Msg: End data with <CR><LF>.<CR><LF>
 data: (354, 'End data with <CR><LF>.<CR><LF>')
-send: 'Hi from yourself. HW4\r\n.\r\n'
-reply: '250 2.0.0 Ok: queued as 80804405D16A\r\n'
-reply: retcode (250); Msg: 2.0.0 Ok: queued as 80804405D16A
-data: (250, '2.0.0 Ok: queued as 80804405D16A')
+send: 'Content-Type: multipart/mixed; boundary="===============6608309801672383955=="\r\nMIME-Version: 1.0\r\n\r\n--===============6608309801672383955==\r\nContent-Type: text/plain; charset="us-ascii"\r\nMIME-Version: 1.0\r\nContent-Transfer-Encoding: 7bit\r\n\r\nHello there with attachment test HW4\r\n--===============6608309801672383955==\r\nContent-Type: application/octet-stream\r\nMIME-Version: 1.0\r\nContent-Transfer-Encoding: base64\r\nContent-Disposition: attachment;filename=results.txt\r\n\r\nfi9jczQzOTAvQ1M0MzkwX0hXNC9TTVRQJCBweXRob24gc210cC5weQpzZW5kOiAnZWhsbyBiZ2xp\r\nbnV4MS5iZ3N1LmVkdVxyXG4nCnJlcGx5OiAnMjUwLXNtdHBvdXQuYmdzdS5lZHVcclxuJwpyZXBs\r\neTogJzI1MC1QSVBFTElOSU5HXHJcbicKcmVwbHk6ICcyNTAtU0laRSAzNzc0ODczNlxyXG4nCnJl\r\ncGx5OiAnMjUwLVZSRllcclxuJwpyZXBseTogJzI1MC1FVFJOXHJcbicKcmVwbHk6ICcyNTAtRU5I\r\nQU5DRURTVEFUVVNDT0RFU1xyXG4nCnJlcGx5OiAnMjUwLThCSVRNSU1FXHJcbicKcmVwbHk6ICcy\r\nNTAgRFNOXHJcbicKcmVwbHk6IHJldGNvZGUgKDI1MCk7IE1zZzogc210cG91dC5iZ3N1LmVkdQpQ\r\nSVBFTElOSU5HClNJWkUgMzc3NDg3MzYKVlJGWQpFVFJOCkVOSEFOQ0VEU1RBVFVTQ09ERVMKOEJJ\r\nVE1JTUUKRFNOCnNlbmQ6ICdtYWlsIEZST006PHhnc2Nod2lAYmdzdS5lZHU+IHNpemU9MjFcclxu\r\nJwpyZXBseTogJzI1MCAyLjEuMCBPa1xyXG4nCnJlcGx5OiByZXRjb2RlICgyNTApOyBNc2c6IDIu\r\nMS4wIE9rCnNlbmQ6ICdyY3B0IFRPOjx4Z3NjaHdpQGJnc3UuZWR1PlxyXG4nCnJlcGx5OiAnMjUw\r\nIDIuMS41IE9rXHJcbicKcmVwbHk6IHJldGNvZGUgKDI1MCk7IE1zZzogMi4xLjUgT2sKc2VuZDog\r\nJ2RhdGFcclxuJwpyZXBseTogJzM1NCBFbmQgZGF0YSB3aXRoIDxDUj48TEY+LjxDUj48TEY+XHJc\r\nbicKcmVwbHk6IHJldGNvZGUgKDM1NCk7IE1zZzogRW5kIGRhdGEgd2l0aCA8Q1I+PExGPi48Q1I+\r\nPExGPgpkYXRhOiAoMzU0LCAnRW5kIGRhdGEgd2l0aCA8Q1I+PExGPi48Q1I+PExGPicpCnNlbmQ6\r\nICdIaSBmcm9tIHlvdXJzZWxmLiBIVzRcclxuLlxyXG4nCnJlcGx5OiAnMjUwIDIuMC4wIE9rOiBx\r\ndWV1ZWQgYXMgODA4MDQ0MDVEMTZBXHJcbicKcmVwbHk6IHJldGNvZGUgKDI1MCk7IE1zZzogMi4w\r\nLjAgT2s6IHF1ZXVlZCBhcyA4MDgwNDQwNUQxNkEKZGF0YTogKDI1MCwgJzIuMC4wIE9rOiBxdWV1\r\nZWQgYXMgODA4MDQ0MDVEMTZBJykKc2VuZDogJ3F1aXRcclxuJwpyZXBseTogJzIyMSAyLjAuMCBC\r\neWVcclxuJwpyZXBseTogcmV0Y29kZSAoMjIxKTsgTXNnOiAyLjAuMCBCeWU=\r\n--===============6608309801672383955==--\r\n.\r\n'
+reply: '250 2.0.0 Ok: queued as 5033740AAAC8\r\n'
+reply: retcode (250); Msg: 2.0.0 Ok: queued as 5033740AAAC8
+data: (250, '2.0.0 Ok: queued as 5033740AAAC8')
 send: 'quit\r\n'
 reply: '221 2.0.0 Bye\r\n'
 reply: retcode (221); Msg: 2.0.0 Bye
