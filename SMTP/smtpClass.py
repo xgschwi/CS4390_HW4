@@ -75,7 +75,7 @@ class smtpClient:
                 attachmentPart = base64.b64encode(a.read()) # MIMEApplication takes raw bytes of data for attachment and defaults to recognize an octet stream
             # attachmentPart.add_header('Content-Disposition', 'attachment;filename=' + attachment) # Header for File Attachment
             print(attachmentPart)
-            messageMulti += attachmentPart + '\r\n--' + self.boundaryString + '\r\n\r\n.\r\n' 
+            messageMulti += attachmentPart + '\r\n--' + self.boundaryString + '--\r\n\r\n.\r\n' 
             #messageMulti.attach(attachmentPart)
             #print(messageMulti.as_string())
         #     self.message = messageMulti.as_string()
