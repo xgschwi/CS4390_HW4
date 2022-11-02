@@ -18,29 +18,36 @@ class smtpClient:
     boundaryString = "====================bofbndnganry3532=="
     # Set the sender and receiver of emails
     def senderAndReceiver(self, sender, receiver):
+        send = "MAIL FROM:" + sender + "\r\n"
         # MAIL FROM and RCPT TO
-        print("Sending MAIL FROM")
+        print(send)
+
         self.server.send("MAIL FROM:" + sender + "\r\n")
         recv = self.server.recv(1024)
+
         print(recv)
         if ("250" not in str(recv)):
             return (-1, "Error setting sender")
 
-        print("Sending RCPT TO")
-        self.server.send("RCPT TO:" + receiver + "\r\n")
+        send = "RCPT TO:" + receiver + "\r\n"
+        print(send)
+
+        self.server.send(send)
         recv = self.server.recv(1024)
+
         print(recv)
 
         if ("250" not in str(recv)):
             return (-1, "Error setting recipient")
-        # self.sender = sender
-        # self.receiver = receiver
+        self.sender = sender
+        self.receiver = receiver
+        return (1, None)
 
 
     
-
+    # Additioanlly used this resource to understand MIME Formatting: http://www.gentle.it/alvise/smtp.htm
     # Set the message body, which is a MIME type of multiple parts, with message body and attachment
-    # Using MIME Library to understand format and printed results to base formatting off of
+    # Using MIME Library to understand format and printed results to base formatting off of the previous run with smtplib instead of socket
     # Sending RCPT TO
     # 250 2.1.5 Ok
 
@@ -62,7 +69,7 @@ class smtpClient:
     # fi9jczQzOTAvQ1M0MzkwX0hXNC9TTVRQJCBweXRob24gc210cC5weSBzbXRwLmJnc3UuZWR1IDI1
     def messageBody(self, message, attachment=None):
         messageMulti = 'Content-Type: multipart/mixed; boundary="' + self.boundaryString + '"\r\nMIME-Version: 1.0\r\n\r\n--' + self.boundaryString + '\r\n'#MIMEMultipart()
-        #messageMulti.attach(MIMEText(message))
+
         messageMulti += 'Content-Type: text/plain; charset="us-ascii"\r\nMIME-Version: 1.0\r\n'
         messageMulti += message + '\r\n--' + self.boundaryString + '\r\n'
 
@@ -72,19 +79,32 @@ class smtpClient:
         try:
             attachmentPart = None
             with open(attachment, 'rb') as a: # Read bytes of attachment
-                attachmentPart = base64.b64encode(a.read()) # MIMEApplication takes raw bytes of data for attachment and defaults to recognize an octet stream
-            # attachmentPart.add_header('Content-Disposition', 'attachment;filename=' + attachment) # Header for File Attachment
-            print(attachmentPart)
+                attachmentPart = base64.b64encode(a.read()) # Get base64 encoding of file contents
+
             messageMulti += attachmentPart + '\r\n--' + self.boundaryString + '--\r\n\r\n.\r\n' 
-            #messageMulti.attach(attachmentPart)
-            #print(messageMulti.as_string())
-        #     self.message = messageMulti.as_string()
+            self.message = messageMulti
         except Exception as e:
              return (-1, e)
         
         return (1, None)
 
-    #def sendEmail(self):
+    def sendEmail(self):
+        print("DATA")
+        self.server.send("DATA\r\n")
+        recv = self.server.recv(1024)
+        print(recv)
+        
+        send = "From: " + self.sender + "\r\n"
+        send += "To: " + self.receiver + "\r\n"
+        send += "Subject: HW4\r\n"
+        send += self.message
+
+        print(send)
+        self.server.send(send)
+
+        recv = self.server.recv(1024)
+        print(recv)
+
        # self.server.sendmail(from_addr=self.sender, to_addrs=[self.receiver], msg=self.message)
 
     #def endTheSession(self):
@@ -99,16 +119,12 @@ class smtpClient:
         print(recv)
 
         # Connecting Use HELO command 3.5. The first command in a session must be the HELO command
-        print("Sending HELO")
-        self.server.send("HELO " + gethostname() + "\r\n")
+        send = "HELO " + gethostname() + "\r\n"
+        print(send)
+        self.server.send(send)
         
         recv = self.server.recv(1024)
         print(recv)
-
-        #self.server = SMTP(host=serverMachine, port=portNumber)
-        #self.server.set_debuglevel(1)
-
-
 
         #   The following are the SMTP commands:
 
