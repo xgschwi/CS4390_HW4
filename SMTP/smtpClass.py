@@ -1,4 +1,5 @@
 import base64
+from pathlib import Path
 from smtplib import SMTP # https://docs.python.org/3/library/smtplib.html
     # MIME Type message with attachment https://docs.python.org/3/library/email.compat32-message.html#email.message.Message.add_header
     # https://docs.python.org/3/library/email.mime.html
@@ -57,7 +58,7 @@ class smtpClient:
 
         # Add attachment
         messageMulti += 'Content-Type: application/octet-stream\r\nMIME-Version: 1.0\r\nContent-Transfer-Encoding: base64\r\n'
-        messageMulti += 'Content-Disposition: attachment;filename="' + attachment + '"\r\n\r\n'
+        messageMulti += 'Content-Disposition: attachment;filename="' + Path(attachment).name + '"\r\n\r\n'
         try:
             attachmentPart = None
             with open(attachment, 'rb') as a: # Read bytes of attachment
