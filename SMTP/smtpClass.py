@@ -35,7 +35,7 @@ class smtpClient:
 
 
     # Set the message body, which is a MIME type of multiple parts, with message body and attachment
-    def messageBody(self, message, attachment=None):
+    #def messageBody(self, message, attachment=None):
         # messageMulti = MIMEMultipart()
         # messageMulti.attach(MIMEText(message))
 
@@ -52,10 +52,10 @@ class smtpClient:
         
         return (1, None)
 
-    def sendEmail(self):
+    #def sendEmail(self):
        # self.server.sendmail(from_addr=self.sender, to_addrs=[self.receiver], msg=self.message)
 
-    def endTheSession(self):
+    #def endTheSession(self):
         #self.server.quit()
 
     def __init__(self, serverMachine, portNumber):
