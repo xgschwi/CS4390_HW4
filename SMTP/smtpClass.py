@@ -15,7 +15,8 @@ class smtpClient:
     server = None
     sender = ''
     receiver = ''
-    boundaryString = "====================bofbndnganry3532=="
+    boundaryString = "====================boundaryString=="
+
     # Set the sender and receiver of emails
     def senderAndReceiver(self, sender, receiver):
         send = "MAIL FROM:" + sender + "\r\n"
@@ -47,26 +48,7 @@ class smtpClient:
     
     # Additioanlly used this resource to understand MIME Formatting: http://www.gentle.it/alvise/smtp.htm
     # Set the message body, which is a MIME type of multiple parts, with message body and attachment
-    # Using MIME Library to understand format and printed results to base formatting off of the previous run with smtplib instead of socket
-    # Sending RCPT TO
-    # 250 2.1.5 Ok
-
-    # Content-Type: multipart/mixed; boundary="===============0299229498347205954=="
-    # MIME-Version: 1.0
-
-    # --===============0299229498347205954==
-    # Content-Type: text/plain; charset="us-ascii"
-    # MIME-Version: 1.0
-    # Content-Transfer-Encoding: 7bit
-
-    # Hi there
-    # --===============0299229498347205954==
-    # Content-Type: application/octet-stream
-    # MIME-Version: 1.0
-    # Content-Transfer-Encoding: base64
-    # Content-Disposition: attachment;filename=results.txt
-
-    # fi9jczQzOTAvQ1M0MzkwX0hXNC9TTVRQJCBweXRob24gc210cC5weSBzbXRwLmJnc3UuZWR1IDI1
+    # results.txt contains MIME Library usage with smtplib that also helped with formulating the body of the data
     def messageBody(self, message, attachment=None):
         messageMulti = 'Content-Type: multipart/mixed; boundary="' + self.boundaryString + '"\r\nMIME-Version: 1.0\r\n\r\n--' + self.boundaryString + '\r\n'#MIMEMultipart()
 
@@ -104,8 +86,6 @@ class smtpClient:
 
         recv = self.server.recv(1024)
         print(recv)
-
-       # self.server.sendmail(from_addr=self.sender, to_addrs=[self.receiver], msg=self.message)
 
     def endTheSession(self):
         print("QUIT")
