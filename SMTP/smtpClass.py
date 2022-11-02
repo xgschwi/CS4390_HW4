@@ -44,15 +44,18 @@ class smtpClient:
 
     def __init__(self, serverMachine, portNumber):
         self.server = socket(AF_INET, SOCK_STREAM)
+        print("Connecting to " + serverMachine + " via port number " + portNumber)
         self.server.connect((serverMachine, int(portNumber))) # one argument as tuple
         recv = self.server.recv(1024)
 
         print(recv)
 
         # Connecting Use HELO command 3.5
+        print("Sending HELO")
         recv = self.server.send("HELO bgsu.edu\r\n")
-        print(recv)
         
+        print(recv)
+
         #self.server = SMTP(host=serverMachine, port=portNumber)
         #self.server.set_debuglevel(1)
 
