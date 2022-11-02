@@ -74,14 +74,14 @@ class smtpClient:
         messageMulti += message + '\r\n--' + self.boundaryString + '\r\n'
 
         # Add attachment
-        messageMulti += 'Content-Type: application/octet-stream\r\nContent-Transfer-Encoding: base64 \r\n'
-        messageMulti += 'Content-Disposition: attachment;\r\nfilename="' + attachment + '"\r\n\r\n'
+        messageMulti += 'Content-Type: application/octet-stream\r\nMIME-Version: 1.0\r\nContent-Transfer-Encoding: base64\r\n'
+        messageMulti += 'Content-Disposition: attachment;filename="' + attachment + '"\r\n\r\n'
         try:
             attachmentPart = None
             with open(attachment, 'rb') as a: # Read bytes of attachment
                 attachmentPart = base64.b64encode(a.read()) # Get base64 encoding of file contents
 
-            messageMulti += attachmentPart + '\r\n--' + self.boundaryString + '--\r\n\r\n.\r\n' 
+            messageMulti += attachmentPart + '\r\n--' + self.boundaryString + '--\r\n.\r\n' 
             self.message = messageMulti
         except Exception as e:
              return (-1, e)
