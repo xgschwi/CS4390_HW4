@@ -68,7 +68,7 @@ class smtpClient:
 
         # Connecting Use HELO command 3.5. The first command in a session must be the HELO command
         print("Sending HELO")
-        recv = self.server.send("HELO bgsu.edu\r\n")
+        recv = self.server.send("HELO " + gethostname() + "\r\n")
         
         print(recv)
 
