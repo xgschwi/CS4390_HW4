@@ -22,35 +22,36 @@ class smtpClient:
         self.server.send("MAIL FROM:" + sender + "\r\n")
         recv = self.server.recv(1024)
         print(recv)
-        # if ("250" not in str(recv)):
-        #     return (-1, "Error setting sender")
+        if ("250" not in str(recv)):
+            return (-1, "Error setting sender")
 
         print("Sending RCPT TO")
         self.server.send("RCPT TO:" + receiver + "\r\n")
         recv = self.server.recv(1024)
         print(recv)
 
-        # if ("250" not in str(recv)):
-        #     return (-1, "Error setting recipient")
+        if ("250" not in str(recv)):
+            return (-1, "Error setting recipient")
         # self.sender = sender
         # self.receiver = receiver
 
 
     # Set the message body, which is a MIME type of multiple parts, with message body and attachment
-    #def messageBody(self, message, attachment=None):
-        # messageMulti = MIMEMultipart()
-        # messageMulti.attach(MIMEText(message))
+    def messageBody(self, message, attachment=None):
+        messageMulti = MIMEMultipart()
+        messageMulti.attach(MIMEText(message))
 
-        # try:
-        #     attachmentPart = None
-        #     with open(attachment, 'rb') as a: # Read bytes of attachment
-        #         attachmentPart = MIMEApplication(a.read()) # MIMEApplication takes raw bytes of data for attachment and defaults to recognize an octet stream
-        #     attachmentPart.add_header('Content-Disposition', 'attachment;filename=' + attachment) # Header for File Attachment
+        try:
+            attachmentPart = None
+            with open(attachment, 'rb') as a: # Read bytes of attachment
+                attachmentPart = MIMEApplication(a.read()) # MIMEApplication takes raw bytes of data for attachment and defaults to recognize an octet stream
+            attachmentPart.add_header('Content-Disposition', 'attachment;filename=' + attachment) # Header for File Attachment
 
-        #     messageMulti.attach(attachmentPart)
+            messageMulti.attach(attachmentPart)
+            print(messageMulti.as_string())
         #     self.message = messageMulti.as_string()
-        # except Exception as e:
-        #     return (-1, e)
+        except Exception as e:
+             return (-1, e)
         
         return (1, None)
 
