@@ -21,14 +21,14 @@ class smtpClient:
         print("Sending MAIL FROM")
         recv = self.server.send("MAIL FROM:" + sender + "\r\n")
         print(recv)
-        if ("250" not in recv):
+        if ("250" not in str(recv)):
             return (-1, "Error setting sender")
 
         print("Sending RCPT TO")
         recv = self.server.send("RCPT TO:" + receiver + "\r\n")
         print(recv)
 
-        if ("250" not in recv):
+        if ("250" not in str(recv)):
             return (-1, "Error setting recipient")
         # self.sender = sender
         # self.receiver = receiver
