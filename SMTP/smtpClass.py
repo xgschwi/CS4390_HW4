@@ -79,7 +79,7 @@ class smtpClient:
         try:
             attachmentPart = None
             with open(attachment, 'rb') as a: # Read bytes of attachment
-                attachmentPart = a.read() #Removed base64 encode # Get base64 encoding of file contents
+                attachmentPart = base64.b64encode(a.read()) # Get base64 encoding of file contents
 
             messageMulti += attachmentPart + '\r\n--' + self.boundaryString + '--\r\n\r\n.\r\n' 
             self.message = messageMulti
