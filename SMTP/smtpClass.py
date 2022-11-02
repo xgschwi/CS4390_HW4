@@ -109,7 +109,7 @@ class smtpClient:
 
     def endTheSession(self):
         print("QUIT")
-        self.server.send("QUIT")
+        self.server.send("QUIT\r\n")
         recv = self.server.recv(1024)
         print(recv)
 
