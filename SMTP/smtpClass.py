@@ -3,6 +3,7 @@ import os
 from socket import *
 
 # https://www.rfc-editor.org/rfc/rfc821
+# https://www.rfc-editor.org/rfc/rfc2045
 
 class smtpClient:
     message = ''
@@ -43,6 +44,7 @@ class smtpClient:
     # Additioanlly used this resource to understand MIME Formatting: http://www.gentle.it/alvise/smtp.htm
     # Set the message body, which is a MIME type of multiple parts, with message body and attachment
     # results.txt contains MIME Library usage with smtplib that also helped with formulating the body of the data
+    # Can send any attachment
     def messageBody(self, message, attachment=None):
         messageMulti = 'Content-Type: multipart/mixed; boundary="' + self.boundaryString + '"\r\nMIME-Version: 1.0\r\n\r\n--' + self.boundaryString + '\r\n'#MIMEMultipart()
 
