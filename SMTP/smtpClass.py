@@ -46,6 +46,44 @@ class smtpClient:
         self.server = socket(AF_INET, SOCK_STREAM)
         self.server.connect((serverMachine, int(portNumber))) # one argument as tuple
         recv = self.server.recv(1024)
+
         print(recv)
+
+        # Connecting Use HELO command 3.5
+        recv = self.server.send("HELO bgsu.edu\r\n")
+        print(recv)
+        
         #self.server = SMTP(host=serverMachine, port=portNumber)
         #self.server.set_debuglevel(1)
+
+
+
+        #   The following are the SMTP commands:
+
+        #     HELO <SP> <domain> <CRLF>
+
+        #     MAIL <SP> FROM:<reverse-path> <CRLF>
+
+        #     RCPT <SP> TO:<forward-path> <CRLF>
+
+        #     DATA <CRLF>
+
+        #     RSET <CRLF>
+
+        #     SEND <SP> FROM:<reverse-path> <CRLF>
+
+        #     SOML <SP> FROM:<reverse-path> <CRLF>
+
+        #     SAML <SP> FROM:<reverse-path> <CRLF>
+
+        #     VRFY <SP> <string> <CRLF>
+
+        #     EXPN <SP> <string> <CRLF>
+
+        #     HELP [<SP> <string>] <CRLF>
+
+        #     NOOP <CRLF>
+
+        #     QUIT <CRLF>
+
+        #     TURN <CRLF>
