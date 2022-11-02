@@ -5,6 +5,7 @@ from smtplib import SMTP # https://docs.python.org/3/library/smtplib.html
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 from email.mime.text import MIMEText
+from socket import *
 
 class smtpClient:
     message = ''
@@ -42,5 +43,9 @@ class smtpClient:
         self.server.quit()
 
     def __init__(self, serverMachine, portNumber):
-        self.server = SMTP(host=serverMachine, port=portNumber)
-        self.server.set_debuglevel(1)
+        self.server = socket(AF_INET, SOCK_STREAM)
+        self.server.connect((serverMachine, int(portNumber))) # one argument as tuple
+        recv = self.server.recv(1024)
+        print(recv)
+        #self.server = SMTP(host=serverMachine, port=portNumber)
+        #self.server.set_debuglevel(1)
