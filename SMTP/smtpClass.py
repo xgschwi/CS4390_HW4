@@ -70,7 +70,7 @@ class smtpClient:
     def messageBody(self, message, attachment=None):
         messageMulti = 'Content-Type: multipart/mixed; boundary="' + self.boundaryString + '"\r\nMIME-Version: 1.0\r\n\r\n--' + self.boundaryString + '\r\n'#MIMEMultipart()
 
-        messageMulti += 'Content-Type: text/plain; charset="us-ascii"\r\nMIME-Version: 1.0\r\n'
+        messageMulti += 'Content-Type: text/plain; charset="us-ascii"\r\nMIME-Version: 1.0\r\n\r\n'
         messageMulti += message + '\r\n--' + self.boundaryString + '\r\n'
 
         # Add attachment
