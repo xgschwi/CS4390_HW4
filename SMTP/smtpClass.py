@@ -1,3 +1,4 @@
+import base64
 from smtplib import SMTP # https://docs.python.org/3/library/smtplib.html
     # MIME Type message with attachment https://docs.python.org/3/library/email.compat32-message.html#email.message.Message.add_header
     # https://docs.python.org/3/library/email.mime.html
@@ -14,7 +15,7 @@ class smtpClient:
     server = None
     sender = ''
     receiver = ''
-    
+    boundaryString = "====================bofbndnganry3532=="
     # Set the sender and receiver of emails
     def senderAndReceiver(self, sender, receiver):
         # MAIL FROM and RCPT TO
@@ -36,19 +37,47 @@ class smtpClient:
         # self.receiver = receiver
 
 
-    # Set the message body, which is a MIME type of multiple parts, with message body and attachment
-    def messageBody(self, message, attachment=None):
-        messageMulti = MIMEMultipart()
-        messageMulti.attach(MIMEText(message))
+    
 
+    # Set the message body, which is a MIME type of multiple parts, with message body and attachment
+    # Using MIME Library to understand format and printed results to base formatting off of
+    # Sending RCPT TO
+    # 250 2.1.5 Ok
+
+    # Content-Type: multipart/mixed; boundary="===============0299229498347205954=="
+    # MIME-Version: 1.0
+
+    # --===============0299229498347205954==
+    # Content-Type: text/plain; charset="us-ascii"
+    # MIME-Version: 1.0
+    # Content-Transfer-Encoding: 7bit
+
+    # Hi there
+    # --===============0299229498347205954==
+    # Content-Type: application/octet-stream
+    # MIME-Version: 1.0
+    # Content-Transfer-Encoding: base64
+    # Content-Disposition: attachment;filename=results.txt
+
+    # fi9jczQzOTAvQ1M0MzkwX0hXNC9TTVRQJCBweXRob24gc210cC5weSBzbXRwLmJnc3UuZWR1IDI1
+    def messageBody(self, message, attachment=None):
+        messageMulti = 'Content-Type: multipart/mixed; boundary="' + self.boundaryString + '"\r\nMIME-Version: 1.0\r\n\r\n--' + self.boundaryString + '\r\n'#MIMEMultipart()
+        #messageMulti.attach(MIMEText(message))
+        messageMulti += 'Content-Type: text/plain; charset="us-ascii"\r\nMIME-Version: 1.0\r\n'
+        messageMulti += message + '\r\n--' + self.boundaryString + '\r\n'
+
+        # Add attachment
+        messageMulti += 'Content-Type: application/octet-stream\r\nContent-Transfer-Encoding: base64 \r\n'
+        messageMulti += 'Content-Disposition: attachment;\r\nfilename="' + attachment + '"\r\n\r\n'
         try:
             attachmentPart = None
             with open(attachment, 'rb') as a: # Read bytes of attachment
-                attachmentPart = MIMEApplication(a.read()) # MIMEApplication takes raw bytes of data for attachment and defaults to recognize an octet stream
-            attachmentPart.add_header('Content-Disposition', 'attachment;filename=' + attachment) # Header for File Attachment
-
-            messageMulti.attach(attachmentPart)
-            print(messageMulti.as_string())
+                attachmentPart = base64.b64encode(a.read()) # MIMEApplication takes raw bytes of data for attachment and defaults to recognize an octet stream
+            # attachmentPart.add_header('Content-Disposition', 'attachment;filename=' + attachment) # Header for File Attachment
+            print(attachmentPart)
+            messageMulti += attachmentPart + '\r\n--' + self.boundaryString + '\r\n\r\n\r\n' 
+            #messageMulti.attach(attachmentPart)
+            #print(messageMulti.as_string())
         #     self.message = messageMulti.as_string()
         except Exception as e:
              return (-1, e)
