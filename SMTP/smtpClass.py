@@ -107,8 +107,11 @@ class smtpClient:
 
        # self.server.sendmail(from_addr=self.sender, to_addrs=[self.receiver], msg=self.message)
 
-    #def endTheSession(self):
-        #self.server.quit()
+    def endTheSession(self):
+        print("QUIT")
+        self.server.send("QUIT")
+        recv = self.server.recv(1024)
+        print(recv)
 
     def __init__(self, serverMachine, portNumber):
         self.server = socket(AF_INET, SOCK_STREAM)
