@@ -19,17 +19,19 @@ class smtpClient:
     def senderAndReceiver(self, sender, receiver):
         # MAIL FROM and RCPT TO
         print("Sending MAIL FROM")
-        recv = self.server.send("MAIL FROM:" + sender + "\r\n")
+        self.server.send("MAIL FROM:" + sender + "\r\n")
+        recv = self.server.recv(1024)
         print(recv)
-        if ("250" not in str(recv)):
-            return (-1, "Error setting sender")
+        # if ("250" not in str(recv)):
+        #     return (-1, "Error setting sender")
 
         print("Sending RCPT TO")
-        recv = self.server.send("RCPT TO:" + receiver + "\r\n")
+        self.server.send("RCPT TO:" + receiver + "\r\n")
+        recv = self.server.recv(1024)
         print(recv)
 
-        if ("250" not in str(recv)):
-            return (-1, "Error setting recipient")
+        # if ("250" not in str(recv)):
+        #     return (-1, "Error setting recipient")
         # self.sender = sender
         # self.receiver = receiver
 
@@ -68,8 +70,9 @@ class smtpClient:
 
         # Connecting Use HELO command 3.5. The first command in a session must be the HELO command
         print("Sending HELO")
-        recv = self.server.send("HELO " + gethostname() + "\r\n")
+        self.server.send("HELO " + gethostname() + "\r\n")
         
+        recv = self.server.recv(1024)
         print(recv)
 
         #self.server = SMTP(host=serverMachine, port=portNumber)
