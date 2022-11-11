@@ -4,7 +4,6 @@ from encodings import *
 import sys, os
 notFound404 = bytes('HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n<html><body><h1>404 Not Found</h1></body></html>', 'utf-8')
 
-
 def serverFileExists(filename):
      return os.path.isfile('./stored/' + filename + '.txt')
 
@@ -23,9 +22,6 @@ while True:
     (clientSock, clientAddr) = serverSock.accept()
     req = clientSock.recv(1234).decode()
 
-    # if not req:
-    #     break
-
     print(req)
 
     url = '/'
@@ -33,22 +29,15 @@ while True:
     if len(req.split(' ')) > 1:
         url = req.split(' ')[1]
 
-    # print(url)
-    # print(url.split('/')[2])
-
     if (url.__contains__('endconn')):
         clientSock.close()
         break
-
-    if (serverFileExists(url.split('/')[2])):
-        file = getServerFile(url.split('/')[2])
+    
+    fileLocation = url.split('/')[2].split('?', 1)[0]
+    print(fileLocation)
+    if (serverFileExists(fileLocation)):
+        file = getServerFile(fileLocation)
         clientSock.send(bytes('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n' + file.read(), 'utf-8'))
         file.close()
     else:
         clientSock.send(notFound404)
-
-    
-
-        
-
-    
