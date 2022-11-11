@@ -7,6 +7,14 @@ notFound404 = bytes('HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n<h
 unauth401 = bytes('HTTP/1.1 401 Unauthorized\r\nContent-Type: text/html\r\n\r\n<html><body><h1>401 Unauthorized</h1></body></html>', 'utf-8') # Request does not contain authorization details
 forbidden403 = bytes('HTTP/1.1 403 Forbidden\r\nContent-Type: text/html\r\n\r\n<html><body><h1>403 Forbidden</h1></body></html>', 'utf-8') # Request has invalid authorization credentials
 
+# Overall, if a file is found on the proxy and authorization is detailed in the request's query parameters, then the cached file will be server,
+# otherwise the file will be received from a server connection that is then opened.
+# If the request does not detail the server, then it is a bad request (400)
+# If the file is not found on the proxy nor server, then the file is not found (404)
+# If the request does not contain any form of authorization (?auth=password), then it is an unauthorized request (401)
+# If the request does not have the correct authorization, then it is forbidden (403)
+
+
 # clear cache on each run
 for f in os.listdir('./cached'):
     os.remove(os.path.join('./cached/', f))
