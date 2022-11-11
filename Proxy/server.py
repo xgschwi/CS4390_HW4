@@ -34,10 +34,13 @@ while True:
         break
     
     fileLocation = url.split('/')[2].split('?', 1)[0]
-    print(fileLocation)
+
     if (serverFileExists(fileLocation)):
         file = getServerFile(fileLocation)
-        clientSock.send(bytes('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n' + file.read(), 'utf-8'))
+        fileContents = file.read()
+        print('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n' + fileContents)
+        clientSock.send(bytes('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n' + fileContents, 'utf-8'))
         file.close()
     else:
+        print(notFound404.decode())
         clientSock.send(notFound404)
